@@ -1,0 +1,62 @@
+img, embed, object, video {
+   max-width: 100%;
+}
+
+.row-bg-color{
+   background-color: #5b9bd5;
+}
+
+.header-text{
+   font-family: "Cuprum", sans-serif;
+   font-size: 48px;
+   color: #ffffff;
+   padding-left: 30px;
+}
+
+.margin-start{
+   margin-top: 38px;
+}
+
+.margin-start-form{
+   margin-top: 20px;
+}
+
+.margin-mid{
+   margin-top: 6px;
+   margin-bottom: 6px;
+}
+
+.margin-end{
+   margin-bottom: 38px;
+}
+
+.item-htlimit{
+   max-height: 450px;
+}
+
+.align-item{
+   margin: auto;
+}
+
+.form-text{
+   font-family: "Lato", sans-serif;
+   font-weight: 400;
+   color: #5b9bd5;
+}
+
+.form-title-text{
+   font-size: 36px;
+}
+
+.form-body-text{
+   font-size: 22px;
+}
+
+.form-link-text{
+   color: #2f5597;
+}
+
+.padding-btn{
+   padding-left: 50px;
+   padding-right: 50px;
+}
