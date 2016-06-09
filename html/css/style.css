@@ -56,7 +56,20 @@ img, embed, object, video {
    color: #2f5597;
 }
 
-.padding-btn{
-   padding-left: 50px;
-   padding-right: 50px;
+.textbox-size{
+   height: 40px;
+}
+
+.btn-size{
+   width: 140px;
+   height: 40px;
+}
+
+.checkbox-size{
+   width: 25px;
+   height: 25px;
+}
+
+.pad-left{
+   padding-left: 10px;
 }
