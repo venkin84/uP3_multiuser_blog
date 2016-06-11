@@ -22,46 +22,75 @@
       <section class="container">
          <div class="row">
             <div class="col-md-7 col-sm-12">
-               <img src="../img/homepage_main-image.jpg" alt="Image that shows that this blog is related to climate change"
-               class="img-responsive align-item item-htlimit"/>
+               <img src="../img/homepage_main-image.jpg"
+                    alt="Image that shows that this blog is related to climate change"
+                    class="img-responsive align-item item-htlimit"/>
             </div>
             <div class="col-md-4 col-md-offset-1 col-sm-12">
-               <form class="form-horizontal" action="#" method="post">
+               <form class="form-horizontal" action="/" method="post">
                   <p class="margin-start form-text form-title-text">
                      Sign Up
                   </p>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="text" class="form-control form-body-text margin-start-form textbox-size" name="firstname" placeholder="First Name">
+                        <input type="text"
+                               class="form-control form-body-text margin-start-form textbox-size"
+                               name="firstname"
+                               placeholder="First Name"
+                               maxlength="30"
+                               value="{{firstname}}">
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="text" class="form-control form-body-text textbox-size" name="lastname" placeholder="Last Name">
+                        <input type="text"
+                               class="form-control form-body-text textbox-size"
+                               name="lastname"
+                               placeholder="Last Name"
+                               maxlength="30"
+                               value="{{lastname}}">
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="email" class="form-control form-body-text textbox-size" name="uname" placeholder="Email Address">
+                        <input type="text"
+                               class="form-control form-body-text textbox-size"
+                               name="emailaddr"
+                               placeholder="Email Address"
+                               maxlength="50"
+                               value="{{emailaddr}}">
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="password" class="form-control form-body-text textbox-size" name="upassword" placeholder="Password">
+                        <input type="password"
+                               class="form-control form-body-text textbox-size"
+                               name="password"
+                               placeholder="Password"
+                               maxlength="20"
+                               value="{{password}}">
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="password" class="form-control form-body-text textbox-size" name="cpassword" placeholder="Confirm Password">
+                        <input type="password"
+                               class="form-control form-body-text textbox-size"
+                               name="cpassword"
+                               placeholder="Confirm Password"
+                               maxlength="20"
+                               value="{{cpassword}}">
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-6">
-                        <a href="/" class="btn btn-default btn-size form-body-text margin-start-form margin-end">Cancel</a>
+                        <a href="/" class="btn btn-default btn-size form-body-text margin-start-form margin-end">
+                           Cancel
+                        </a>
                      </div>
                      <div class="col-xs-6">
-                        <input type="submit" class="btn btn-default btn-size form-body-text pull-right margin-start-form margin-end"
-                        value="Sign Up">
+                        <input type="submit"
+                               class="btn btn-default btn-size form-body-text pull-right margin-start-form margin-end"
+                               value="Sign Up">
                      </div>
                   </div>
                </form>
