@@ -5,7 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Blog: Climate Change | Sign Up</title>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cuprum:700" type="text/css">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400" type="text/css">
       <link rel="stylesheet" href="../css/bootstrap.min.css">
       <link rel="stylesheet" href="../css/style.css">
       <script type="text/javascript" src="../js/jquery-2.2.4.min.js"></script>
@@ -27,69 +27,129 @@
                     class="img-responsive align-item item-htlimit"/>
             </div>
             <div class="col-md-4 col-md-offset-1 col-sm-12">
-               <form class="form-horizontal" action="/" method="post">
-                  <p class="margin-start form-text form-title-text">
+               <form class="form-horizontal" action="#" method="post">
+                  <p class="margin-form-title form-text form-title-text">
                      Sign Up
                   </p>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="text"
-                               class="form-control form-body-text margin-start-form textbox-size"
-                               name="firstname"
-                               placeholder="First Name"
-                               maxlength="30"
-                               value="{{firstname}}">
+                        {% if firstname_error == None %}
+                           <input type="text"
+                                  class="form-control form-body-text textbox-size"
+                                  name="firstname"
+                                  placeholder="First Name"
+                                  maxlength="30"
+                                  value="{{firstname}}">
+                        {% else %}
+                           <div class="error-text">
+                              {{firstname_error}}
+                           </div>
+                           <input type="text"
+                                  class="form-control form-body-text textbox-size"
+                                  name="firstname"
+                                  placeholder="First Name"
+                                  maxlength="30"
+                                  value="{{firstname}}">
+                        {% endif %}
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="text"
-                               class="form-control form-body-text textbox-size"
-                               name="lastname"
-                               placeholder="Last Name"
-                               maxlength="30"
-                               value="{{lastname}}">
+                        {% if lastname_error == None %}
+                           <input type="text"
+                                  class="form-control form-body-text textbox-size"
+                                  name="lastname"
+                                  placeholder="Last Name"
+                                  maxlength="30"
+                                  value="{{lastname}}">
+                        {% else %}
+                           <div class="error-text">
+                              {{lastname_error}}
+                           </div>
+                           <input type="text"
+                                  class="form-control form-body-text textbox-size"
+                                  name="lastname"
+                                  placeholder="Last Name"
+                                  maxlength="30"
+                                  value="{{lastname}}">
+                        {% endif %}
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="text"
-                               class="form-control form-body-text textbox-size"
-                               name="emailaddr"
-                               placeholder="Email Address"
-                               maxlength="50"
-                               value="{{emailaddr}}">
+                        {% if emailaddr_error == None %}
+                           <input type="text"
+                                  class="form-control form-body-text textbox-size"
+                                  name="emailaddr"
+                                  placeholder="Email Address"
+                                  maxlength="50"
+                                  value="{{emailaddr}}">
+                        {% else %}
+                           <div class="error-text">
+                              {{emailaddr_error}}
+                           </div>
+                           <input type="text"
+                                  class="form-control form-body-text textbox-size"
+                                  name="emailaddr"
+                                  placeholder="Email Address"
+                                  maxlength="50"
+                                  value="{{emailaddr}}">
+                        {% endif %}
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="password"
-                               class="form-control form-body-text textbox-size"
-                               name="password"
-                               placeholder="Password"
-                               maxlength="20"
-                               value="{{password}}">
+                        {% if password_error == None %}
+                           <input type="password"
+                                  class="form-control form-body-text textbox-size"
+                                  name="password"
+                                  placeholder="Password"
+                                  maxlength="20"
+                                  value="{{password}}">
+                        {% else %}
+                           <div class="error-text">
+                              {{password_error}}
+                           </div>
+                           <input type="password"
+                                  class="form-control form-body-text textbox-size"
+                                  name="password"
+                                  placeholder="Password"
+                                  maxlength="20"
+                                  value="{{password}}">
+                        {% endif %}
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-12">
-                        <input type="password"
-                               class="form-control form-body-text textbox-size"
-                               name="cpassword"
-                               placeholder="Confirm Password"
-                               maxlength="20"
-                               value="{{cpassword}}">
+                        {% if cpassword_error == None %}
+                           <input type="password"
+                                  class="form-control form-body-text textbox-size"
+                                  name="cpassword"
+                                  placeholder="Confirm Password"
+                                  maxlength="20"
+                                  value="{{cpassword}}">
+                        {% else %}
+                           <div class="error-text">
+                              {{cpassword_error}}
+                           </div>
+                           <input type="password"
+                                  class="form-control form-body-text textbox-size"
+                                  name="cpassword"
+                                  placeholder="Confirm Password"
+                                  maxlength="20"
+                                  value="{{cpassword}}">
+                        {% endif %}
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-xs-6">
-                        <a href="/" class="btn btn-default btn-size form-body-text margin-start-form margin-end">
+                        <a href="/" class="btn btn-default btn-size form-body-text margin-form-submit">
                            Cancel
                         </a>
                      </div>
                      <div class="col-xs-6">
                         <input type="submit"
-                               class="btn btn-default btn-size form-body-text pull-right margin-start-form margin-end"
+                               class="btn btn-default btn-size form-body-text pull-right margin-form-submit"
                                value="Sign Up">
                      </div>
                   </div>

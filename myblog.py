@@ -13,11 +13,6 @@ class SignUpPage(webapp2.RequestHandler):
     page = jinja_env.get_template('signup.html')
     self.response.out.write(page.render())
 
-class SignInPage(webapp2.RequestHandler):
-  def get(self):
-    page = jinja_env.get_template('homepage.html')
-    self.response.out.write(page.render())
-
   def post(self):
     u_firstname = FieldValidator(self.request.get('firstname'), "First Name")
     u_firstname.isNotEmpty()
@@ -36,16 +31,32 @@ class SignInPage(webapp2.RequestHandler):
     c_password = FieldValidator(self.request.get('cpassword'), "Confirm Password")
     c_password.isNotEmpty()
     if u_password.value != c_password.value:
-      if c_password.errormsg == '0':
+      if c_password.errormsg == None:
         c_password.errormsg = "Password Doesn't Match"
 
-    """if ((u_firstname.errormsg != None) |
+    if ((u_firstname.errormsg != None) |
         (u_lastname.errormsg != None) |
         (u_emailaddr.errormsg != None) |
         (u_password.errormsg != None) |
-        (c_password.errormsg != None) ):"""
+        (c_password.errormsg != None) ):
+      page = jinja_env.get_template('signup.html')
+      self.response.out.write(page.render(firstname=u_firstname.value,
+                                          lastname=u_lastname.value,
+                                          emailaddr=u_emailaddr.value,
+                                          password=u_password.value,
+                                          cpassword=c_password.value,
+                                          firstname_error=u_firstname.errormsg,
+                                          lastname_error=u_lastname.errormsg,
+                                          emailaddr_error=u_emailaddr.errormsg,
+                                          password_error=u_password.errormsg,
+                                          cpassword_error=c_password.errormsg))
+    else:
+      self.redirect('/?action=successful_signup')
 
-    self.response.out.write(u_password.value + ' ' + u_password.errormsg + '  |  ' + c_password.value + ' ' + c_password.errormsg)
+class SignInPage(webapp2.RequestHandler):
+  def get(self):
+    page = jinja_env.get_template('homepage.html')
+    self.response.out.write(page.render())
 
 app = webapp2.WSGIApplication([
   ('/account/signup', SignUpPage),
