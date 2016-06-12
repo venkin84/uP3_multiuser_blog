@@ -1,9 +1,11 @@
 import os
+import datetime
 
 import webapp2
 import jinja2
 
 from hashing import SHA256Hashing
+from hashing import HMACHashing
 from validator import FieldValidator
 from domainModels import User
 from domainModels import DBUtility
@@ -74,17 +76,34 @@ class SignUpPage(webapp2.RequestHandler):
 
 class SignInPage(webapp2.RequestHandler):
   def get(self):
-    # Check Cookie
-    message = None
     redirectDueTo = self.request.get('action')
-
-    if redirectDueTo == "successful_signup":
-      message = "Successfully Signed Up... Sign In to Continue..."
+    message = None
+    if redirectDueTo == "signout":
+      message = "You have successfully signed out..."
       page = jinja_env.get_template('homepage.html')
+      self.response.delete_cookie('user')
       self.response.out.write(page.render(message=message))
     else:
-      page = jinja_env.get_template('homepage.html')
-      self.response.out.write(page.render())
+      user_cookie = self.request.cookies.get('user')
+      if user_cookie:
+        u_emailaddr = user_cookie.split('|')[0]
+        dbHandle = DBUtility()
+        c_users = dbHandle.getUser(u_emailaddr)
+        for c_user in c_users:
+          if c_user.emailaddr == u_emailaddr:
+            self.redirect('/blog')
+          else:
+            self.response.delete_cookie('user')
+            self.redirect('/')
+      else:
+        if redirectDueTo == "successful_signup":
+          message = "You have successfully signed Up..."
+          page = jinja_env.get_template('homepage.html')
+          self.response.out.write(page.render(message=message))
+        else:
+          page = jinja_env.get_template('homepage.html')
+          self.response.out.write(page.render())
+
 
   def post(self):
     u_username = FieldValidator(self.request.get('username'), "Email address")
@@ -93,6 +112,8 @@ class SignInPage(webapp2.RequestHandler):
 
     u_password = FieldValidator(self.request.get('password'), "Password")
     u_password.isNotEmpty()
+
+    u_rememberMe = self.request.get('rememberme')
 
     if ((u_username.errormsg == None) & (u_password.errormsg == None)):
       hashed_password = None
@@ -120,16 +141,40 @@ class SignInPage(webapp2.RequestHandler):
       self.response.out.write(page.render(username=u_username.value,
                                           password=u_password.value,
                                           username_error=u_username.errormsg,
-                                          password_error=u_password.errormsg))
+                                          password_error=u_password.errormsg,
+                                          rememberme=u_rememberMe))
     else:
-      #Cookie Setup
-      self.redirect('/blog')
+      dbHandle = DBUtility()
+      users = dbHandle.getUser(u_username.value)
+      for user in users:
+        if user.emailaddr == u_username.value:
+          hashobj = HMACHashing()
+          #Cookie Setup
+          if u_rememberMe:
+            cookie_active_until = datetime.datetime.now()+datetime.timedelta(days=30)
+            self.response.set_cookie('user', hashobj.make_ck_hash(u_username.value),expires=cookie_active_until)
+          else:
+            self.response.set_cookie('user', hashobj.make_ck_hash(u_username.value))
+          self.redirect('/blog')
+
 
 class UserBlog(webapp2.RequestHandler):
   def get(self):
-    #Check Cookie
-    page = jinja_env.get_template('blog.html')
-    self.response.out.write(page.render())
+    cookie = self.request.cookies.get('user')
+    if cookie:
+      u_firstname = None
+      u_emailaddr = cookie.split('|')[0]
+      dbHandle = DBUtility()
+      users = dbHandle.getUser(u_emailaddr)
+      for user in users:
+        if user.emailaddr == u_emailaddr:
+          u_firstname = user.firstname
+          break
+      page = jinja_env.get_template('blog.html')
+      self.response.out.write(page.render(firstname=u_firstname))
+    else:
+      self.redirect('/')
+
 
 app = webapp2.WSGIApplication([
   ('/account/signup', SignUpPage),

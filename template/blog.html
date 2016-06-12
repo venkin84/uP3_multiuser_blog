@@ -5,7 +5,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Blog: Climate Change | Blogger: {{username}}</title>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cuprum:700" type="text/css">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400" type="text/css">
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/style.css">
       <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
@@ -14,11 +14,55 @@
    <body>
       <header class="container">
          <div class="row row-bg-color margin-start">
-            <div class="col-md-12 header-text">
+            <div class="col-md-6 header-text">
                My Blog
+            </div>
+            <div class="col-md-4 nav-text text-right">
+               Welcome {{firstname}}
+            </div>
+            <div class="col-md-2">
+               <a href="/?action=signout" class="nav-text text-right">
+                  <span class="glyphicon glyphicon-log-out" aria-hidden="true">Sign Out</span>
+               </a>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-12 col-sm-12">
+               <img src="img/homepage_main-image.jpg" alt="Image that shows that this blog is related to climate change"
+               class="img-responsive align-item item-htlimit"/>
             </div>
          </div>
       </header>
-
+      <section class="container">
+         <div class="row">
+            Opinions of Others
+         </div>
+         <div class="conainer-class">
+            {% for blog in blogs %}
+               <div class="blog-body">
+                  <div class="title">
+                     {{blog.title}}
+                  </div>
+                  <div class="body">
+                     {{blog.body}}
+                  </div>
+               </div>
+            {% endfor %}
+         </div>
+      </section>
+      <div id="blogModal" class="modal fade" tabindex="-1" role="dialog" > <!--Modal for Appify-->
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="button" data-dismiss="modal">x</button>
+                  <h4 class="modal-title text-uppercase modal-title-text" id="blogModelLabel">Your Blog</h4>
+               </div>
+               <div class="modal-body">
+               </div>
+               <div class="modal-footer">
+               </div>
+            </div>
+         </div>
+      </div>
    </body>
 </html>
