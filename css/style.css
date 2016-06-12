@@ -33,6 +33,10 @@ img, embed, object, video {
    margin-bottom: 38px;
 }
 
+.margin-end{
+   margin-bottom: 38px;
+}
+
 .item-htlimit{
    max-height: 450px;
 }
@@ -84,4 +88,10 @@ img, embed, object, video {
    font-size: 16px;
    padding-bottom: 0px;
    margin-bottom: 2px;
+}
+
+.alert-text{
+   font-family: "Lato", sans-serif;
+   font-weight: 400;
+   font-size: 16px;
 }
