@@ -2,6 +2,10 @@ img, embed, object, video {
    max-width: 100%;
 }
 
+body{
+   min-width: 321px;
+}
+
 .row-bg-color{
    background-color: #5b9bd5;
 }
@@ -11,7 +15,11 @@ img, embed, object, video {
    font-weight: 700;
    font-size: 48px;
    color: #ffffff;
-   padding-left: 30px;
+   padding-left: 15px;
+}
+
+.margin-start{
+   margin-top: 38px;
 }
 
 .margin-form-title{
@@ -64,7 +72,7 @@ img, embed, object, video {
 }
 
 .textbox-size{
-   height: 40px;
+   min-height: 40px;
 }
 
 .btn-size{
@@ -86,7 +94,7 @@ img, embed, object, video {
    font-family: "Lato", sans-serif;
    font-weight: 400;
    font-size: 16px;
-   padding-bottom: 0px;
+   padding-bottom: 0;
    margin-bottom: 2px;
 }
 
@@ -96,9 +104,208 @@ img, embed, object, video {
    font-size: 16px;
 }
 
-.nav-text{
+.signout-icon-style{
+   font-size: 28px;
+   padding-right: 15px;
+   padding-left: 10px;
+   background-color: #5b9bd5;
+   color:#ffffff;
+   border-color: #5b9bd5;
+   margin-top: 12px;
+   text-align: right;
+}
+
+.username-font-style{
+   font-family: "Lato", sans-serif;
+   font-weight: 400;
+   font-size: 22px;
+   padding-right: 10px;
+}
+
+@media screen and (max-width: 767px){
+   .title-text{
+      font-family: "Lato", sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      color: #4d4d4d;
+   }
+
+   .blog-here-btn{
+      background-color: #5b9bd5;
+      font-family: "Lato", sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: #ffffff;
+      min-height: 40px;
+      width: 290px;
+      float: right;
+      margin-right: 15px;
+      border-radius: 10px;
+   }
+}
+
+@media screen and (min-width: 768px){
+   .relative{
+      position: relative;
+   }
+
+   .absolute{
+      position: absolute;
+      top: 70px;
+      right: 20px;
+   }
+
+   .blog-here-btn{
+      background-color: #5b9bd5;
+      font-family: "Lato", sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: #ffffff;
+      width: 290px;
+      min-height: 40px;
+      border-radius: 10px;
+   }
+}
+
+.modal-close-btn {
+   float: right;
+   min-width: 40px;
+   min-height: 40px;
+   font-size: 24px;
+   margin-top: 9px;
+   border-width: 0;
+   background-color: #ffffff;
+}
+
+.modal-title-text {
+   font-size: 24px;
+   padding-top: 10px;
+}
+
+.modal-form-text{
+   font-size: 16px;
+}
+
+.round-user-icon{
+   -moz-border-radius: 50%;
+   border-radius: 50%;
+   width: 45px;
+   height: 45px;
+   background: #00cc66;
+   font-family: "Cuprum", sans-serif;
+   font-weight: 700;
+   font-size: 24px;
+   color: #ffffff;
+   text-align: center;
+   line-height: 48px;
+   margin-right: 5px;
+   margin-left: 10px;
+   display: inline-block;
+}
+
+.inline-div{
+   display: inline;
+}
+
+.usericon-align{
+   text-align: right;
+   margin-top: 14px;
+   margin-bottom: 14px;
+}
+
+.usericon-dropdown-menu{
+   top: 130%;
+   left: auto !important;
+   right: -10px;
+   width: 314px;
+   text-align: right;
+   background-color: #e6e6e6;
+}
+
+.usericon-dropdown-menu-text{
    font-family: "Lato", sans-serif;
    font-weight: 400;
    font-size: 18px;
-   color: #ffffff;
+   color: #3482cb;
+   text-align: right;
 }
+
+.usericon-dropdown-menu-align{
+   padding-right: 20px;
+   padding-left: 20px;
+}
+/*
+#usericon{
+   position: relative;
+}
+
+#usericon ul{
+   display: none;
+}
+
+#usericon:hover ul{
+   display: block;
+   position: absolute;
+   background-color: #cccccc;
+   top: 50px;
+   right: 15px;
+}
+
+#usericon ul li{
+   width: 290px;
+}
+*/
+
+/*.blog-here{
+   position: relative;
+   z-index: 1;
+}
+.blog-here button{
+   color:#fff;
+   border:none;
+   background: #699ce7;
+   margin: 30px 0 30px;
+   padding: 10px 30px;
+   right: 0;
+}
+
+.blog-content label{
+   padding: 10px 0;
+   font-weight: normal;
+}
+
+.blog-content textarea{
+   margin: 0;
+   padding: 2%;
+   width: 100%;
+}
+.blog-content input[type="submit"]{
+   background: #699ce7;
+   border: 0;
+   color: #ffffff;
+   float: right;
+   margin: 10px 0;
+   padding: 10px 20px;
+}
+#blogModal .modal-footer{border-top: 0;}
+.blog-title{
+   background: #333333;
+   color:#ffffff;
+   margin: 30px 0 0px;
+   padding: 10px;
+}
+.arrow-slide{
+	width: 0;
+	height: 0;
+   float: left;
+	border-top: 30px solid #cccccc;
+	border-left: 30px solid transparent;
+
+}
+.author-name{
+   background: #cccccc;
+   float: left;
+   padding: 5px 20px;
+   margin: 0 0 20px;
+}
+*/

@@ -2,10 +2,10 @@
 <html>
    <head>
       <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Blog: Climate Change | Blogger: {{username}}</title>
+      <meta name="viewport" content="width=device-width initial-scale=1">
+      <title>Blog: Climate Change | Blogger: {{firstname}}</title>
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cuprum:700" type="text/css">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400" type="text/css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/style.css">
       <script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
@@ -14,52 +14,105 @@
    <body>
       <header class="container">
          <div class="row row-bg-color margin-start">
-            <div class="col-md-6 header-text">
+            <div class="col-xs-8 header-text">
                My Blog
             </div>
-            <div class="col-md-4 nav-text text-right">
-               Welcome {{firstname}}
-            </div>
-            <div class="col-md-2">
-               <a href="/?action=signout" class="nav-text text-right">
-                  <span class="glyphicon glyphicon-log-out" aria-hidden="true">Sign Out</span>
-               </a>
+            <div class="col-xs-4 pull-right usericon-align">
+               <div class="dropdown">
+                  <span class="hidden-xs username-font-style"><b>{{firstname}}</b></span>
+                  <span class="round-user-icon dropdown-toggle" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                     {{initial}}
+                  </span>
+                  <ul class="dropdown-menu usericon-dropdown-menu" aria-labelledby="dropdownMenu1">
+                     <li class="usericon-dropdown-menu-text usericon-dropdown-menu-align"><b>{{emailaddr}}</b></li>
+                     <li><a href="/?action=signout" class="usericon-dropdown-menu-text"><b>Signout</b></a></li>
+                  </ul>
+               </div>
             </div>
          </div>
          <div class="row">
-            <div class="col-md-12 col-sm-12">
+            <div class="col-md-12 relative">
                <img src="img/homepage_main-image.jpg" alt="Image that shows that this blog is related to climate change"
-               class="img-responsive align-item item-htlimit"/>
+                    class="img-responsive align-item item-htlimit hidden-xs"/>
+               <div class="row">
+                  <h2 class="col-xs-12 pull-left hidden-sm hidden-md hidden-lg title-text">
+                     The Climate Change Colloboration
+                  </h2>
+                  <a href="#" class="col-xs-12 absolute btn blog-here-btn"
+                     data-toggle="modal" data-target="#blogModal">
+                     Share Your Thoughts
+                  </a>
+               </div>
             </div>
          </div>
+         <hr>
       </header>
       <section class="container">
-         <div class="row">
-            Opinions of Others
-         </div>
-         <div class="conainer-class">
-            {% for blog in blogs %}
-               <div class="blog-body">
-                  <div class="title">
-                     {{blog.title}}
-                  </div>
-                  <div class="body">
-                     {{blog.body}}
-                  </div>
-               </div>
-            {% endfor %}
+         <div class="">
+
          </div>
       </section>
       <div id="blogModal" class="modal fade" tabindex="-1" role="dialog" > <!--Modal for Appify-->
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <button type="button" class="button" data-dismiss="modal">x</button>
-                  <h4 class="modal-title text-uppercase modal-title-text" id="blogModelLabel">Your Blog</h4>
+                  <button type="button" class="modal-close-btn" data-dismiss="modal">x</button>
+                  <h4 class="modal-title modal-title-text" id="blogModelLabel">
+                     Blog here...
+                  </h4>
                </div>
                <div class="modal-body">
+                  <form class="form-horizontal" action="#" method="post">
+                     <div class="form-group">
+                        <div class="col-xs-12">
+                           {% if blogtitle_error == None %}
+                              <input type="text"
+                                     class="form-control form-body modal-form-text textbox-size"
+                                     name="blogtitle"
+                                     placeholder="Blog Title"
+                                     maxlength="300">
+                           {% else %}
+                              <div class="error-text">
+                                 {{blogtitle_error}}
+                              </div>
+                              <input type="text"
+                                     class="form-control form-body modal-form-text textbox-size"
+                                     name="blogtitle"
+                                     placeholder="Blog Title"
+                                     maxlength="300">
+                           {% endif %}
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <div class="col-xs-12">
+                           {% if blogbody_error == None %}
+                              <textarea name="blogbody"
+                                        rows="20"
+                                        class="form-control form-body modal-form-text">
+                              </textarea>
+                           {% else %}
+                              <div class="error-text">
+                                 {{blogbody_error}}
+                              </div>
+                              <textarea name="blogbody"
+                                        rows="8"
+                                        class="form-control form-body modal-form-text">
+                              </textarea>
+                           {% endif %}
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <div class="col-xs-12">
+                           <input type="submit"
+                                  class="btn btn-default btn-size modal-form-text pull-right margin-form-submit"
+                                  value="Submit">
+                        </div>
+                     </div>
+                  </form>
                </div>
                <div class="modal-footer">
+
                </div>
             </div>
          </div>

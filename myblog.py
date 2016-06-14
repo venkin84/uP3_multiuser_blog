@@ -89,12 +89,14 @@ class SignInPage(webapp2.RequestHandler):
         u_emailaddr = user_cookie.split('|')[0]
         dbHandle = DBUtility()
         c_users = dbHandle.getUser(u_emailaddr)
+        no_of_users = 0
         for c_user in c_users:
           if c_user.emailaddr == u_emailaddr:
             self.redirect('/blog')
-          else:
-            self.response.delete_cookie('user')
-            self.redirect('/')
+            no_of_users += 1
+        if no_of_users != 1:
+          self.response.delete_cookie('user')
+          self.redirect('/')
       else:
         if redirectDueTo == "successful_signup":
           message = "You have successfully signed Up..."
@@ -150,7 +152,7 @@ class SignInPage(webapp2.RequestHandler):
         if user.emailaddr == u_username.value:
           hashobj = HMACHashing()
           #Cookie Setup
-          if u_rememberMe:
+          if u_rememberMe != None:
             cookie_active_until = datetime.datetime.now()+datetime.timedelta(days=30)
             self.response.set_cookie('user', hashobj.make_ck_hash(u_username.value),expires=cookie_active_until)
           else:
@@ -163,15 +165,23 @@ class UserBlog(webapp2.RequestHandler):
     cookie = self.request.cookies.get('user')
     if cookie:
       u_firstname = None
+      u_lastname = None
       u_emailaddr = cookie.split('|')[0]
       dbHandle = DBUtility()
       users = dbHandle.getUser(u_emailaddr)
       for user in users:
         if user.emailaddr == u_emailaddr:
           u_firstname = user.firstname
+          u_lastname = user.lastname
           break
-      page = jinja_env.get_template('blog.html')
-      self.response.out.write(page.render(firstname=u_firstname))
+      if u_firstname == None:
+        self.redirect('/')
+      else:
+        u_initial = u_firstname[:1] + u_lastname[:1]
+        page = jinja_env.get_template('blog.html')
+        self.response.out.write(page.render(firstname=u_firstname,
+                                            emailaddr=u_emailaddr,
+                                            initial=u_initial))
     else:
       self.redirect('/')
 
