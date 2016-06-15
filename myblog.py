@@ -32,7 +32,7 @@ class SignUpPage(webapp2.RequestHandler):
     users = dbHandle.getUser(u_emailaddr.value)
     emailExist = False
     for user in users:
-      if user.emailaddr == u_emailaddr.value:
+      if user.id == u_emailaddr.value:
         emailExist = True
     if emailExist:
       if u_emailaddr.errormsg == None:
@@ -69,7 +69,7 @@ class SignUpPage(webapp2.RequestHandler):
       hashobj = SHA256Hashing();
       newuser = User (firstname = u_firstname.value,
                       lastname = u_lastname.value,
-                      emailaddr = u_emailaddr.value,
+                      id = u_emailaddr.value,
                       password = hashobj.make_pw_hash(u_emailaddr.value, u_password.value))
       newuser.put()
       self.redirect('/?action=successful_signup')
@@ -91,7 +91,7 @@ class SignInPage(webapp2.RequestHandler):
         c_users = dbHandle.getUser(u_emailaddr)
         no_of_users = 0
         for c_user in c_users:
-          if c_user.emailaddr == u_emailaddr:
+          if c_user.id == u_emailaddr:
             self.redirect('/blog')
             no_of_users += 1
         if no_of_users != 1:
@@ -117,17 +117,19 @@ class SignInPage(webapp2.RequestHandler):
 
     u_rememberMe = self.request.get('rememberme')
 
-    if ((u_username.errormsg == None) & (u_password.errormsg == None)):
+    if ((u_username.errormsg == None) &
+        (u_password.errormsg == None)):
       hashed_password = None
       dbHandle = DBUtility()
       users = dbHandle.getUser(u_username.value)
       for user in users:
-        if user.emailaddr == u_username.value:
+        if user.id == u_username.value:
           emailExist = True
           hashed_password = user.password
           break
       if not emailExist:
-        if (u_username.errormsg == None & u_password.errormsg == None):
+        if ((u_username.errormsg == None) &
+            (u_password.errormsg == None)):
           u_username.errormsg = "Please enter a valid Email Address and Password"
           u_password.errormsg = "Please enter a valid Email Address and Password"
       else:
@@ -138,7 +140,7 @@ class SignInPage(webapp2.RequestHandler):
             u_password.errormsg = "Please enter a valid Email Address and Password"
 
     if ((u_username.errormsg != None) |
-        (u_password.errormsg != None) ):
+        (u_password.errormsg != None)):
       page = jinja_env.get_template('homepage.html')
       self.response.out.write(page.render(username=u_username.value,
                                           password=u_password.value,
@@ -149,7 +151,7 @@ class SignInPage(webapp2.RequestHandler):
       dbHandle = DBUtility()
       users = dbHandle.getUser(u_username.value)
       for user in users:
-        if user.emailaddr == u_username.value:
+        if user.id == u_username.value:
           hashobj = HMACHashing()
           #Cookie Setup
           if u_rememberMe != None:
@@ -170,7 +172,7 @@ class UserBlog(webapp2.RequestHandler):
       dbHandle = DBUtility()
       users = dbHandle.getUser(u_emailaddr)
       for user in users:
-        if user.emailaddr == u_emailaddr:
+        if user.id == u_emailaddr:
           u_firstname = user.firstname
           u_lastname = user.lastname
           break
