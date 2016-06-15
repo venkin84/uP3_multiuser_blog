@@ -116,6 +116,7 @@ class SignInPage(webapp2.RequestHandler):
     u_password.isNotEmpty()
 
     u_rememberMe = self.request.get('rememberme')
+    emailExist = False
 
     if ((u_username.errormsg == None) &
         (u_password.errormsg == None)):
