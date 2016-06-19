@@ -7,8 +7,7 @@ class User(db.Model):
   password = db.StringProperty (required = True)
   created = db.DateTimeProperty (auto_now_add = True)
 
-class DBUtility():
-  def getUser (self, email):
-    q = db.Query(User)
-    q.filter("emailaddr =", email)
-    return q.get()
+class Blog(db.Model):
+  user = db.ReferenceProperty (User, required = True, collection_name = 'blogs')
+  title = db.StringProperty (required = True)
+  body = db.TextProperty (required = True)

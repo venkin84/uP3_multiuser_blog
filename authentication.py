@@ -8,10 +8,11 @@ from hashing import SHA256Hashing
 from hashing import HMACHashing
 from validator import FieldValidator
 from domainModels import User
-from domainModels import DBUtility
+from dbUtils import DBUtility
 
 template_dir = os.path.join(os.path.dirname(__file__), 'template')
 jinja_env = jinja2.Environment (loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
+dbHandle = DBUtility()
 
 class SignUpPage(webapp2.RequestHandler):
   def get(self):
@@ -28,8 +29,7 @@ class SignUpPage(webapp2.RequestHandler):
     u_emailaddr = FieldValidator(self.request.get('emailaddr'), "Email address")
     u_emailaddr.isNotEmpty()
     u_emailaddr.isValidEmail()
-    dbHandle = DBUtility()
-    user = dbHandle.getUser(u_emailaddr.value)
+    user = dbHandle.read_User(u_emailaddr.value)
     if user:
       if u_emailaddr.errormsg == None:
         u_emailaddr.errormsg = "This Email Address is already Registered!"
@@ -61,13 +61,11 @@ class SignUpPage(webapp2.RequestHandler):
                                           password_error=u_password.errormsg,
                                           cpassword_error=c_password.errormsg))
     else:
-      hashobj = SHA256Hashing();
-      newuser = User (firstname = u_firstname.value,
-                      lastname = u_lastname.value,
-                      emailaddr = u_emailaddr.value,
-                      password = hashobj.hash_password(u_emailaddr.value, u_password.value))
-      newuser.put()
-      self.redirect('/?action=successful_signup')
+      u_key = dbHandle.create_User(u_firstname.value, u_lastname.value, u_emailaddr.value, u_password.value)
+      if u_key:
+        self.redirect('/?action=successful_signup')
+      else:
+        self.redirect('/?action=unsuccessful_signup')
 
 class SignInPage(webapp2.RequestHandler):
   def get(self):
@@ -84,7 +82,7 @@ class SignInPage(webapp2.RequestHandler):
         cookie_hash = HMACHashing()
         user_info = cookie_hash.validate_hashed_cookie(u_cookie)
         dbHandle = DBUtility()
-        user = dbHandle.getUser(user_info)
+        user = dbHandle.read_User(user_info)
         if user:
           self.redirect('/blogs')
         else:
@@ -114,7 +112,7 @@ class SignInPage(webapp2.RequestHandler):
     if ((u_username.errormsg == None) &
         (u_password.errormsg == None)):
       dbHandle = DBUtility()
-      user = dbHandle.getUser(u_username.value)
+      user = dbHandle.read_User(u_username.value)
       if user:
         hashobj = SHA256Hashing();
         if not (hashobj.validate_hashed_password(u_username.value, u_password.value, user.password)):
@@ -137,7 +135,7 @@ class SignInPage(webapp2.RequestHandler):
                                           rememberme=u_rememberMe))
     else:
       dbHandle = DBUtility()
-      user = dbHandle.getUser(u_username.value)
+      user = dbHandle.read_User(u_username.value)
       if user:
         hashobj = HMACHashing()
         if u_rememberMe != None:
