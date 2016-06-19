@@ -6,16 +6,16 @@ threadsafe: yes
 
 handlers:
 -  url: /css
-   static_dir: css
+   static_dir: template/css
 
 -  url: /img
-   static_dir: img
+   static_dir: template/img
 
 -  url: /js
-   static_dir: js
+   static_dir: template/js
 
 -  url: /fonts
-   static_dir: fonts
+   static_dir: template/fonts
 
 -  url: /.*
    script: myblog.app
