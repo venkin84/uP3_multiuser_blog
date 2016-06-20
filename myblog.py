@@ -2,12 +2,14 @@ import webapp2
 
 from authentication import SignUpPage
 from authentication import SignInPage
-from blogs import BlogListPage
+from blogs import BlogsListPage
+from blogs import BlogInPage
 
 app = webapp2.WSGIApplication([
   ('/account/signup', SignUpPage),
   ('/', SignInPage),
-  ('/blogs', BlogListPage),
+  ('/blogs', BlogsListPage),
+  ('/blogs/blogin', BlogInPage)
   #('/blogs/blog', BlogPage),
 ], debug=True)
 

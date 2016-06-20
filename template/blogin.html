@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width initial-scale=1">
+      <title>Blog: Climate Change | Blogger: {{user.firstname}}</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cuprum:700" type="text/css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
+      <link rel="stylesheet" href="../css/bootstrap.min.css">
+      <link rel="stylesheet" href="../css/style.css">
+      <script type="text/javascript" src="../js/jquery-2.2.4.min.js"></script>
+      <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <header class="container">
+         <div class="row row-bg-color margin-start">
+            <div class="col-xs-8 header-text">
+               My Blog
+            </div>
+            <div class="col-xs-4 pull-right usericon-align">
+               <div class="dropdown">
+                  <span class="hidden-xs username-font-style"><b>{{user.firstname}}</b></span>
+                  <span class="round-user-icon dropdown-toggle" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                     {{user.firstname[:1] + user.lastname[:1]}}
+                  </span>
+                  <ul class="dropdown-menu usericon-dropdown-menu" aria-labelledby="dropdownMenu1">
+                     <li class="usericon-dropdown-menu-text usericon-dropdown-menu-align"><b>{{user.emailaddr}}</b></li>
+                     <li><a href="/?action=signout" class="usericon-dropdown-menu-text"><b>Signout</b></a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </header>
+      <section class="container">
+         <h4 class="modal-title margin-form-title form-title-text" id="blogModelLabel">
+            Blog here...
+         </h4>
+         <form class="form-horizontal" action="#" method="post" id="blogin_form">
+            <div class="form-group">
+               <div class="col-xs-12">
+                  {% if blogtitle_error == None %}
+                     <input type="text"
+                            class="form-control form-body form-body-text textbox-size"
+                            name="blogtitle"
+                            placeholder="Blog Title"
+                            maxlength="300"
+                            value="{{blogtitle}}">
+                  {% else %}
+                     <div class="error-text">
+                        {{blogtitle_error}}
+                     </div>
+                     <input type="text"
+                            class="form-control form-body form-body-text textbox-size"
+                            name="blogtitle"
+                            placeholder="Blog Title"
+                            maxlength="300"
+                            value="{{blogtitle}}">
+                  {% endif %}
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="col-xs-12">
+                  {% if blogbody_error == None %}
+                     <textarea name="blogbody"
+                               rows="1"
+                               cols="1"
+                               class="form-control form-body form-body-text"
+                               form="blogin_form"
+                               value="">
+                     </textarea>
+                  {% else %}
+                     <div class="error-text">
+                        {{blogbody_error}}
+                     </div>
+                     <textarea name="blogbody"
+                               rows="1"
+                               cols="1"
+                               class="form-control form-body form-body-text"
+                               form="blogin_form"
+                               value="">
+                     </textarea>
+                  {% endif %}
+               </div>
+            </div>
+            <div class="form-group">
+               <div class="col-xs-6">
+                  <a href="/blogs" class="btn btn-default btn-size form-body-text margin-form-submit">
+                     Cancel
+                  </a>
+               </div>
+               <div class="col-xs-6">
+                  <input type="submit"
+                         class="btn btn-default btn-size form-body-text pull-right margin-form-submit"
+                         value="Submit">
+               </div>
+            </div>
+         </form>
+      </section>
+   </body>
+</html>

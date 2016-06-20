@@ -8,6 +8,6 @@ class User(db.Model):
   created = db.DateTimeProperty (auto_now_add = True)
 
 class Blog(db.Model):
-  user = db.ReferenceProperty (User, required = True, collection_name = 'blogs')
+  author = db.ReferenceProperty (User, required = True, collection_name = 'blogs')
   title = db.StringProperty (required = True)
-  body = db.TextProperty (required = True)
+  blogbody = db.TextProperty (required = True)

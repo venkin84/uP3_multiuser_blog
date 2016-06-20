@@ -61,7 +61,7 @@ class SignUpPage(webapp2.RequestHandler):
                                           password_error=u_password.errormsg,
                                           cpassword_error=c_password.errormsg))
     else:
-      u_key = dbHandle.create_User(u_firstname.value, u_lastname.value, u_emailaddr.value, u_password.value)
+      u_key = dbHandle.save_User(u_firstname.value, u_lastname.value, u_emailaddr.value, u_password.value)
       if u_key:
         self.redirect('/?action=successful_signup')
       else:
