@@ -11,3 +11,4 @@ class Blog(db.Model):
   author = db.ReferenceProperty (User, required = True, collection_name = 'blogs')
   title = db.StringProperty (required = True)
   blogbody = db.TextProperty (required = True)
+  created = db.DateTimeProperty (auto_now_add = True)

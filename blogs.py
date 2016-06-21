@@ -21,9 +21,9 @@ class BlogsListPage(webapp2.RequestHandler):
       user_info = cookie_hash.validate_hashed_cookie(u_cookie)
       user = dbHandle.read_User(user_info)
       if user:
-        u_initial = user.firstname[:1] + user.lastname[:1]
+        blogs = dbHandle.read_blogs(None,None,5,"created","desc")
         page = jinja_env.get_template('blogs.html')
-        self.response.out.write(page.render(user=user))
+        self.response.out.write(page.render(user=user, recentBlogs=blogs))
       else:
         self.redirect('/')
     else:

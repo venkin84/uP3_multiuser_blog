@@ -7,7 +7,7 @@ body{
 }
 
 .row-bg-color{
-   background-color: #5b9bd5;
+   background-color: #0099ff;
 }
 
 .header-text{
@@ -56,7 +56,7 @@ body{
 .form-text{
    font-family: "Lato", sans-serif;
    font-weight: 400;
-   color: #5b9bd5;
+   color: #0099ff;
 }
 
 .form-title-text{
@@ -108,9 +108,9 @@ body{
    font-size: 28px;
    padding-right: 15px;
    padding-left: 10px;
-   background-color: #5b9bd5;
+   background-color: #0099ff;
    color:#ffffff;
-   border-color: #5b9bd5;
+   border-color: #0099ff;
    margin-top: 12px;
    text-align: right;
 }
@@ -131,7 +131,7 @@ body{
    }
 
    .blog-here-btn{
-      background-color: #5b9bd5;
+      background-color: #0099ff;
       font-family: "Lato", sans-serif;
       font-weight: 700;
       font-size: 24px;
@@ -149,14 +149,21 @@ body{
       position: relative;
    }
 
+   .title-text{
+      font-family: "Lato", sans-serif;
+      font-weight: 700;
+      font-size: 42px;
+      color: #4d4d4d;
+   }
+
    .absolute{
       position: absolute;
-      top: 70px;
+      top: 20px;
       right: 20px;
    }
 
    .blog-here-btn{
-      background-color: #5b9bd5;
+      background-color: #0099ff;
       font-family: "Lato", sans-serif;
       font-weight: 700;
       font-size: 24px;
@@ -233,6 +240,73 @@ body{
 .usericon-dropdown-menu-align{
    padding-right: 20px;
    padding-left: 20px;
+}
+
+.recent-blogs-title-text{
+   font-family: "Lato", sans-serif;
+   font-weight: 400;
+   font-size: 28px;
+   color: #666666;
+   text-align: left;
+}
+
+.blogs-title-text{
+   font-family: "Lato", sans-serif;
+   font-weight: 400;
+   font-size: 24px;
+   color: #262626;
+   text-align: left;
+}
+
+.blogs-custom-margin-1{
+   margin-bottom: 8px;
+}
+
+.blogs-custom-margin-2{
+   margin-top: 20px;
+}
+
+.blogs-createddate-text{
+   font-family: "Lato", sans-serif;
+   font-weight: 400;
+   font-size: 16px;
+   color: #00cc66;
+   text-align: left;
+}
+
+.blogs-author-text{
+   font-family: "Lato", sans-serif;
+   font-weight: 400;
+   font-size: 18px;
+   color: #0099ff;
+   text-align: left;
+   margin-bottom: 15px;
+}
+
+.blogs-body-text{
+   font-size: 14px;
+   color: #000000;
+   text-align: justify;
+   margin-bottom: 15px;
+}
+
+.blogs-hr{
+   margin-top: 10px;
+   margin-bottom: 15px;
+}
+
+.blogs-likes-comments-icons{
+   font-size: 16px;
+   color: #808080;
+   display: inline-block;
+}
+.blogs-likes-comments-text{
+   font-size: 16px;
+   color: #0099ff;
+}
+
+.blogs-custom-margin-3{
+   margin-left: 20px;
 }
 /*
 #usericon{

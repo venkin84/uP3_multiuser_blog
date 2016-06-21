@@ -26,6 +26,7 @@
                   </span>
                   <ul class="dropdown-menu usericon-dropdown-menu" aria-labelledby="dropdownMenu1">
                      <li class="usericon-dropdown-menu-text usericon-dropdown-menu-align"><b>{{user.emailaddr}}</b></li>
+                     <li><a href="/blogs/myblogs" class="usericon-dropdown-menu-text"><b>My Blogs</b></a></li>
                      <li><a href="/?action=signout" class="usericon-dropdown-menu-text"><b>Signout</b></a></li>
                   </ul>
                </div>
@@ -33,11 +34,11 @@
          </div>
          <div class="row">
             <div class="col-md-12 relative">
-               <img src="img/homepage_main-image.jpg" alt="Image that shows that this blog is related to climate change"
-                    class="img-responsive align-item item-htlimit hidden-xs"/>
+               <!--<img src="img/homepage_main-image.jpg" alt="Image that shows that this blog is related to climate change"
+                    class="img-responsive align-item item-htlimit hidden-xs"/>-->
                <div class="row">
-                  <h2 class="col-xs-12 pull-left hidden-sm hidden-md hidden-lg title-text">
-                     The Climate Change Colloboration
+                  <h2 class="col-xs-12 pull-left title-text blogs-custom-margin-2">
+                     <b>The Climate Change Colloboration</b>
                   </h2>
                   <a href="/blogs/blogin" class="col-xs-12 absolute btn blog-here-btn">
                      Share Your Thoughts
@@ -48,8 +49,50 @@
          <hr>
       </header>
       <section class="container">
-         <div class="">
-
+         <div class="row">
+            <div class="col-md-8 col-xs-12">
+               <div class="row">
+                  <div class="col-xs-12 recent-blogs-title-text">
+                     <b>Most Recent Blogs</b>
+                  </div>
+               </div>
+               <hr>
+               {% for blog in recentBlogs %}
+                  <div class="row">
+                     <a href="/blogs/blog?id={{blog.key().id()}}|{{blog.author.key().id()}}">
+                        <div class="col-xs-12 blogs-createddate-text">
+                           {{blog.created.strftime('%d  %b  %y')}}
+                        </div>
+                        <div class="col-xs-12 blogs-title-text blogs-custom-margin-1">
+                           {{blog.title}}
+                        </div>
+                        <div class="col-xs-12 blogs-author-text">
+                           by {{blog.author.firstname}}.
+                        </div>
+                        <div class="col-xs-12 blogs-body-text">
+                           {{blog.blogbody[:460]}}
+                        </div>
+                        <div class="col-xs-12 blogs-likes-comments-text" align="right">
+                           <span>12</span>
+                           <div class="blogs-likes-comments-icons">
+                              <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                              <span class="hidden-xs">Likes</span>
+                           </div>
+                           <span class="blogs-custom-margin-3">6</span>
+                           <div class="blogs-likes-comments-icons">
+                              <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                              <span class="hidden-xs">Comments</span>
+                           </div>
+                        </div>
+                     </a>
+                  </div>
+                  <hr class="blogs-hr">
+               {% else %}
+                  <div class="">
+                     No blogs available
+                  </div>
+               {% endfor %}
+            </div>
          </div>
       </section>
    </body>
