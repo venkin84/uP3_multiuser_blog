@@ -80,6 +80,9 @@ class DBUtility():
     q = db.Query(Blog)
     return q.count()
 
+  def delete_blog(self, blog):
+    return blog.delete()
+
   def save_comment(self, u_comment, c_blog, c_user, c_id=0):
     if c_id>0:
       c_key = db.Key.from_path('Comment', long(c_id))
@@ -98,6 +101,9 @@ class DBUtility():
   def count_comments_byBlog(self, blog):
     q = db.Query(Comment)
     return q.filter('blog =', blog).count()
+
+  def delete_comment(self, comment):
+    return comment.delete()
 
   def save_userLikes(self, l_blog, l_user):
     q = db.Query(Like)

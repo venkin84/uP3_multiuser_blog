@@ -137,14 +137,26 @@ class BlogPage(webapp2.RequestHandler):
       user_info = cookie_hash.validate_hashed_cookie(u_cookie)
       user = dbHandle.read_User(user_info)
       if user:
+        action = self.request.get('action')
+        if action == "deleteblog":
+          b_key = self.request.get('b_id')
+          blog = dbHandle.read_blog_byKey(b_key)
+          if (blog.author.key().id() == user.key().id()):
+            dbHandle.delete_blog(blog)
+            self.redirect('/blogs?action=successfully_deleted')
+          else:
+            self.redirect('/blogs')
         b_key = self.request.get('id')
-        blog = dbHandle.read_blog_byKey(b_key)
-        comments = dbHandle.read_comments_byBlog(blog)
-        page = jinja_env.get_template('blog.html')
-        self.response.out.write(page.render(user=user,
-                                            blog=blog,
-                                            comments=comments,
-                                            dbHandle=dbHandle))
+        if b_key:
+          blog = dbHandle.read_blog_byKey(b_key)
+          comments = dbHandle.read_comments_byBlog(blog)
+          page = jinja_env.get_template('blog.html')
+          self.response.out.write(page.render(user=user,
+                                              blog=blog,
+                                              comments=comments,
+                                              dbHandle=dbHandle))
+        else:
+          self.redirect('/blogs')
       else:
         self.redirect('/')
     else:
