@@ -320,6 +320,12 @@ body{
    color: #808080;
 }
 
+.blogs-footer-text{
+   font-size: 18px;
+   margin-left: 5px;
+   margin-right: 5px;
+}
+
 .blog-title-text{
    font-family: "Lato", sans-serif;
    font-weight: 400;
@@ -392,14 +398,23 @@ body{
    color: #808080;
 }
 
-.blog-back-btn{
+.blog-btn-text{
    font-family: "Cuprum", sans-serif;
    font-weight: 400;
    font-size: 20px;
    color: #808080;
+}
+
+.blog-btn-position{
    margin-top: 20px;
-   text-align: left;
+   margin-left: 5px;
+   margin-right: 5px;
    display: inline-block;
+}
+
+.blog-btn-size{
+   min-width: 50px;
+   min-height: 40px;
 }
 
 textarea{

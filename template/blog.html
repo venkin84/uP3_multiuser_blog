@@ -35,14 +35,35 @@
       </header>
       <section class="container">
          <div class="row">
-            <div class="col-xs-12">
-               <a href="/blogs">
+            <div class="col-xs-6">
+               <a class="blog-btn-position blog-btn-size text-left blog-btn-text" href="/blogs">
                   <span class="glyphicon glyphicon-menu-left" aria-hidden="true">
-                     <div class="blog-back-btn">
-                        <b>Back to Blogs Page</b>
-                     </div>
+                     <span class="hidden-xs hidden-sm text-left">
+                        <b>Back</b>
+                     </span>
                   </span>
                </a>
+            </div>
+            <div class="col-xs-6" align="right">
+               {% if blog.author.key().id() == user.key().id() %}
+                  <a class="blog-btn-position blog-btn-size blog-btn-text text-center"
+                     href="/blogs/blogin?id={{blog.key()}}">
+                     <span class="glyphicon glyphicon-edit" aria-hidden="true">
+                        <span class="hidden-xs hidden-sm">
+                           <b>Edit</b>
+                        </span>
+                     </span>
+                  </a>
+                  <span class="blog-btn-text"><b>|</b></span>
+                  <a class="blog-btn-position blog-btn-size blog-btn-text text-center"
+                     href="/blogs?action=deleteblog&id={{blog.key()}}">
+                     <span class="glyphicon glyphicon-trash" aria-hidden="true">
+                        <span class="hidden-xs hidden-sm">
+                           <b>Delete</b>
+                        </span>
+                     </span>
+                  </a>
+               {% endif %}
             </div>
             <div class="col-xs-12 blog-title-text">
                {{blog.title}}

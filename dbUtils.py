@@ -76,6 +76,10 @@ class DBUtility():
   def read_blog_byKey (self, b_key):
     return db.get(b_key)
 
+  def count_blogs(self):
+    q = db.Query(Blog)
+    return q.count()
+
   def save_comment(self, u_comment, c_blog, c_user, c_id=0):
     if c_id>0:
       c_key = db.Key.from_path('Comment', long(c_id))
@@ -98,7 +102,7 @@ class DBUtility():
   def save_userLikes(self, l_blog, l_user):
     q = db.Query(Like)
     liked = q.filter('blog =', l_blog).filter('user =', l_user).count()
-    if liked == 0:
+    if ((liked == 0) & (l_blog.author.key().id() != l_user.key().id())):
       like = Like(user=l_user, blog=l_blog)
       return like.put()
     else:
