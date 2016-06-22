@@ -2,6 +2,7 @@ from google.appengine.ext import db
 
 from domainModels import User
 from domainModels import Blog
+from domainModels import Comment
 from hashing import SHA256Hashing
 
 class DBUtility():
@@ -40,11 +41,9 @@ class DBUtility():
         blog.title = b_title
       if b_body:
         blog.blogbody = b_body
-      if b_author:
-        blog.author = b_author
       return blog.put()
     else:
-      blog = Blog(author=b_author, title=b_title,blogbody=b_body)
+      blog = Blog(author=b_author, title=b_title, blogbody=b_body)
       return blog.put()
 
   def read_blogs (self, author = None, offset_num = None, limit_num = None, orderby_property = None, orderin = "asc"):
@@ -72,3 +71,21 @@ class DBUtility():
       return q.filter('title =', b_title).filter('user =', author).get()
     else:
       return q.filter('title =', b_title).get()
+
+  def read_blog_byKey (self, b_key):
+    return db.get(b_key)
+
+  def save_comment(self, u_comment, c_blog, c_user, c_id=0):
+    if c_id>0:
+      c_key = db.Key.from_path('Comment', long(c_id))
+      comment = db.get(c_key)
+      if u_comment:
+        comment.comment = u_comment
+      return comment.put()
+    else:
+      comment = Comment(user=c_user, blog=c_blog, comment=u_comment)
+      return comment.put()
+
+  def read_comments_byBlog(self, blog):
+    q = db.Query(Comment)
+    return q.filter('blog =', blog).order("-created").run()

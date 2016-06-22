@@ -12,3 +12,9 @@ class Blog(db.Model):
   title = db.StringProperty (required = True)
   blogbody = db.TextProperty (required = True)
   created = db.DateTimeProperty (auto_now_add = True)
+
+class Comment(db.Model):
+  user = db.ReferenceProperty (User, required = True, collection_name = 'comments')
+  blog = db.ReferenceProperty (Blog, required = True, collection_name = 'comments')
+  comment = db.TextProperty (required = True)
+  created = db.DateTimeProperty (auto_now_add = True)

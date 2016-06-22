@@ -5,7 +5,6 @@ import jinja2
 
 from hashing import HMACHashing
 from validator import FieldValidator
-#from domainModels import User
 from dbUtils import DBUtility
 
 template_dir = os.path.join(os.path.dirname(__file__), 'template')
@@ -63,11 +62,10 @@ class BlogInPage(webapp2.RequestHandler):
 
         if ((b_title.errormsg != None) |
             (b_blogbody.errormsg != None)):
-          #template_values = {'user' :user}
           page = jinja_env.get_template('blogin.html')
           self.response.out.write(page.render(user=user,
                                               blogtitle=b_title.value,
-                                              #blogbody=b_blogbody.value,
+                                              blogbody=b_blogbody.value,
                                               blogtitle_error=b_title.errormsg,
                                               blogbody_error=b_blogbody.errormsg
                                               ))
@@ -77,6 +75,48 @@ class BlogInPage(webapp2.RequestHandler):
             self.redirect('/blogs?action=successfully_submission')
           else:
             self.redirect('/blogs/blogin?action=unsuccessful_submission')
+      else:
+        self.redirect('/')
+    else:
+      self.redirect('/?action=signout')
+
+
+class BlogPage(webapp2.RequestHandler):
+  def get (self):
+    u_cookie = self.request.cookies.get('user')
+    if u_cookie:
+      cookie_hash = HMACHashing()
+      user_info = cookie_hash.validate_hashed_cookie(u_cookie)
+      user = dbHandle.read_User(user_info)
+      if user:
+        b_key = self.request.get('id')
+        blog = dbHandle.read_blog_byKey(b_key)
+        comments = dbHandle.read_comments_byBlog(blog)
+        page = jinja_env.get_template('blog.html')
+        self.response.out.write(page.render(user=user,
+                                            blog=blog,
+                                            comments=comments))
+      else:
+        self.redirect('/')
+    else:
+      self.redirect('/?action=signout')
+
+  def post (self):
+    u_cookie = self.request.cookies.get('user')
+    if u_cookie:
+      cookie_hash = HMACHashing()
+      user_info = cookie_hash.validate_hashed_cookie(u_cookie)
+      user = dbHandle.read_User(user_info)
+      if user:
+        u_comment = FieldValidator(self.request.get('comment'), "Comment")
+        u_comment.isNotEmpty()
+        b_key = self.request.get('blog')
+        blog = dbHandle.read_blog_byKey(b_key)
+        if u_comment.errormsg == None:
+          c_key = dbHandle.save_comment(u_comment.value, blog, user)
+          self.redirect('/blogs/blog?id='+ str(blog.key()))
+        else:
+          self.redirect('/blogs/blog?id='+ str(blog.key()))
       else:
         self.redirect('/')
     else:

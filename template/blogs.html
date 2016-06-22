@@ -33,16 +33,20 @@
             </div>
          </div>
          <div class="row">
-            <div class="col-md-12 relative">
+            <div class="col-md-12">
                <!--<img src="img/homepage_main-image.jpg" alt="Image that shows that this blog is related to climate change"
                     class="img-responsive align-item item-htlimit hidden-xs"/>-->
                <div class="row">
-                  <h2 class="col-xs-12 pull-left title-text blogs-custom-margin-2">
+                  <h2 class="col-xs-12 col-md-12 pull-left title-text blogs-custom-margin-2 text-left">
                      <b>The Climate Change Colloboration</b>
                   </h2>
-                  <a href="/blogs/blogin" class="col-xs-12 absolute btn blog-here-btn">
-                     Share Your Thoughts
-                  </a>
+               </div>
+               <div class="row">
+                  <div class="col-xs-12 col-md-12" align="right">
+                     <a href="/blogs/blogin" class="btn blog-here-btn">
+                        Share Your Thoughts
+                     </a>
+                  </div>
                </div>
             </div>
          </div>
@@ -59,7 +63,7 @@
                <hr>
                {% for blog in recentBlogs %}
                   <div class="row">
-                     <a href="/blogs/blog?id={{blog.key().id()}}|{{blog.author.key().id()}}">
+                     <a href="/blogs/blog?id={{blog.key()}}">
                         <div class="col-xs-12 blogs-createddate-text">
                            {{blog.created.strftime('%d  %b  %y')}}
                         </div>
@@ -70,7 +74,7 @@
                            by {{blog.author.firstname}}.
                         </div>
                         <div class="col-xs-12 blogs-body-text">
-                           {{blog.blogbody[:460]}}
+                           <pre class="blogs-textarea">{{blog.blogbody[:460]}}</pre>
                         </div>
                         <div class="col-xs-12 blogs-likes-comments-text" align="right">
                            <span>12</span>
@@ -88,8 +92,8 @@
                   </div>
                   <hr class="blogs-hr">
                {% else %}
-                  <div class="">
-                     No blogs available
+                  <div class="blogs-noblog-note" align="center">
+                     Be the First to Blog...
                   </div>
                {% endfor %}
             </div>

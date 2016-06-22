@@ -29,3 +29,6 @@ class HMACHashing():
       return arg
     else:
       return None
+
+  def hash_urlsafe (self, arg):
+    return (hmac.new(self.SECRET_KEY, arg).hexdigest())
