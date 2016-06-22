@@ -11,10 +11,15 @@ class Blog(db.Model):
   author = db.ReferenceProperty (User, required = True, collection_name = 'blogs')
   title = db.StringProperty (required = True)
   blogbody = db.TextProperty (required = True)
-  created = db.DateTimeProperty (auto_now_add = True)
+  created = db.DateTimeProperty (auto_now = True)
 
 class Comment(db.Model):
   user = db.ReferenceProperty (User, required = True, collection_name = 'comments')
   blog = db.ReferenceProperty (Blog, required = True, collection_name = 'comments')
   comment = db.TextProperty (required = True)
-  created = db.DateTimeProperty (auto_now_add = True)
+  created = db.DateTimeProperty (auto_now = True)
+
+class Like(db.Model):
+  user = db.ReferenceProperty (User, required = True, collection_name = 'likes')
+  blog = db.ReferenceProperty (Blog, required = True, collection_name = 'likes')
+  liked_On = db.DateTimeProperty (auto_now_add = True)

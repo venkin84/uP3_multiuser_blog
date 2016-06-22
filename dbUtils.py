@@ -3,6 +3,7 @@ from google.appengine.ext import db
 from domainModels import User
 from domainModels import Blog
 from domainModels import Comment
+from domainModels import Like
 from hashing import SHA256Hashing
 
 class DBUtility():
@@ -89,3 +90,20 @@ class DBUtility():
   def read_comments_byBlog(self, blog):
     q = db.Query(Comment)
     return q.filter('blog =', blog).order("-created").run()
+
+  def count_comments_byBlog(self, blog):
+    q = db.Query(Comment)
+    return q.filter('blog =', blog).count()
+
+  def save_userLikes(self, l_blog, l_user):
+    q = db.Query(Like)
+    liked = q.filter('blog =', l_blog).filter('user =', l_user).count()
+    if liked == 0:
+      like = Like(user=l_user, blog=l_blog)
+      return like.put()
+    else:
+      return None
+
+  def count_likes_byBlog(self, blog):
+    q = db.Query(Like)
+    return q.filter('blog =', blog).count()

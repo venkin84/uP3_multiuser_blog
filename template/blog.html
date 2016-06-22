@@ -4,7 +4,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width initial-scale=1">
       <title>Blog: Climate Change | Blogger: {{user.firstname}}</title>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cuprum:700" type="text/css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cuprum:400,700" type="text/css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
       <link rel="stylesheet" href="../css/bootstrap.min.css">
       <link rel="stylesheet" href="../css/style.css">
@@ -13,7 +13,7 @@
    </head>
    <body>
       <header class="container">
-         <div class="row row-bg-color margin-start">
+         <div class="row row-bg-color margin-start" align="left">
             <div class="col-xs-8 header-text">
                My Blog
             </div>
@@ -35,6 +35,15 @@
       </header>
       <section class="container">
          <div class="row">
+            <div class="col-xs-12">
+               <a href="/blogs">
+                  <span class="glyphicon glyphicon-menu-left" aria-hidden="true">
+                     <div class="blog-back-btn">
+                        <b>Back to Blogs Page</b>
+                     </div>
+                  </span>
+               </a>
+            </div>
             <div class="col-xs-12 blog-title-text">
                {{blog.title}}
             </div>
@@ -48,7 +57,7 @@
                <pre class="blogs-textarea blog-body-text">{{blog.blogbody}}</pre>
             </div>
             <div class="col-xs-12" align="left">
-               <span class="blog-likes-comments-text">12</span>
+               <span class="blog-likes-comments-text">{{dbHandle.count_likes_byBlog(blog)}}</span>
                <a class="blog-likes-comments-icons" href="/blogs/blog/like?id={{blog.key()}}">
                   <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                   <span>Like It</span>

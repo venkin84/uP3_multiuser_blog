@@ -22,7 +22,9 @@ class BlogsListPage(webapp2.RequestHandler):
       if user:
         blogs = dbHandle.read_blogs(None,None,5,"created","desc")
         page = jinja_env.get_template('blogs.html')
-        self.response.out.write(page.render(user=user, recentBlogs=blogs))
+        self.response.out.write(page.render(user=user,
+                                            recentBlogs=blogs,
+                                            dbHandle=dbHandle))
       else:
         self.redirect('/')
     else:
@@ -95,7 +97,8 @@ class BlogPage(webapp2.RequestHandler):
         page = jinja_env.get_template('blog.html')
         self.response.out.write(page.render(user=user,
                                             blog=blog,
-                                            comments=comments))
+                                            comments=comments,
+                                            dbHandle=dbHandle))
       else:
         self.redirect('/')
     else:
@@ -117,6 +120,23 @@ class BlogPage(webapp2.RequestHandler):
           self.redirect('/blogs/blog?id='+ str(blog.key()))
         else:
           self.redirect('/blogs/blog?id='+ str(blog.key()))
+      else:
+        self.redirect('/')
+    else:
+      self.redirect('/?action=signout')
+
+class LikeABlog(webapp2.RequestHandler):
+  def get(self):
+    u_cookie = self.request.cookies.get('user')
+    if u_cookie:
+      cookie_hash = HMACHashing()
+      user_info = cookie_hash.validate_hashed_cookie(u_cookie)
+      user = dbHandle.read_User(user_info)
+      if user:
+        b_key = self.request.get('id')
+        blog = dbHandle.read_blog_byKey(b_key)
+        l_key = dbHandle.save_userLikes(blog, user)
+        self.redirect('/blogs/blog?id='+ str(blog.key()))
       else:
         self.redirect('/')
     else:

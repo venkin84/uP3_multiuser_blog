@@ -54,7 +54,7 @@
       </header>
       <section class="container">
          <div class="row">
-            <div class="col-md-8 col-xs-12">
+            <div class="col-xs-12">
                <div class="row">
                   <div class="col-xs-12 recent-blogs-title-text">
                      <b>Most Recent Blogs</b>
@@ -77,12 +77,12 @@
                            <pre class="blogs-textarea">{{blog.blogbody[:460]}}</pre>
                         </div>
                         <div class="col-xs-12 blogs-likes-comments-text" align="right">
-                           <span>12</span>
+                           <span>{{dbHandle.count_likes_byBlog(blog)}}</span>
                            <div class="blogs-likes-comments-icons">
                               <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                               <span class="hidden-xs">Likes</span>
                            </div>
-                           <span class="blogs-custom-margin-3">6</span>
+                           <span class="blogs-custom-margin-3">{{dbHandle.count_comments_byBlog(blog)}}</span>
                            <div class="blogs-likes-comments-icons">
                               <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                               <span class="hidden-xs">Comments</span>
