@@ -64,9 +64,13 @@ class BlogInPage(webapp2.RequestHandler):
       user = dbHandle.read_User(user_info)
       if user:
         b_key = self.request.get('id')
-        blog = dbHandle.read_blog_byKey(b_key)
-        page = jinja_env.get_template('blogin.html')
-        self.response.out.write(page.render(user=user, blog=blog))
+        if b_key:
+          blog = dbHandle.read_blog_byKey(b_key)
+          page = jinja_env.get_template('editblog.html')
+          self.response.out.write(page.render(user=user, blog=blog))
+        else:
+          page = jinja_env.get_template('blogin.html')
+          self.response.out.write(page.render(user=user))
       else:
         self.redirect('/')
     else:
@@ -86,7 +90,7 @@ class BlogInPage(webapp2.RequestHandler):
         b_blogbody.isNotEmpty()
 
         b_key = self.request.get('id')
-        if b_key != "":
+        if b_key:
           blog = dbHandle.read_blog_byKey(b_key)
           if blog!=None:
             if b_title.value:
@@ -100,14 +104,15 @@ class BlogInPage(webapp2.RequestHandler):
 
         if ((b_title.errormsg != None) |
             (b_blogbody.errormsg != None)):
-          page = jinja_env.get_template('blogin.html')
           if blog != None:
+            page = jinja_env.get_template('editblog.html')
             self.response.out.write(page.render(user=user,
                                                 blog=blog,
                                                 blogtitle_error=b_title.errormsg,
                                                 blogbody_error=b_blogbody.errormsg
                                                 ))
           else:
+            page = jinja_env.get_template('blogin.html')
             self.response.out.write(page.render(user=user,
                                                 blogtitle=b_title.value,
                                                 blogbody=b_blogbody.value,
@@ -115,10 +120,12 @@ class BlogInPage(webapp2.RequestHandler):
                                                 blogbody_error=b_blogbody.errormsg
                                                 ))
         else:
-          if blog == None:
-            blog_key = dbHandle.save_Blog(b_title.value, b_blogbody.value, user)
+          if b_key:
+            blog = dbHandle.read_blog_byKey(b_key)
+            if blog!=None:
+              blog_key = dbHandle.save_Blog(b_title.value, b_blogbody.value, user, blog.key().id())
           else:
-            blog_key = dbHandle.save_Blog(b_title.value, b_blogbody.value, user, blog.key().id())
+            blog_key = dbHandle.save_Blog(b_title.value, b_blogbody.value, user)
           if blog_key:
             self.redirect('/blogs?action=successfully_submission')
           else:
@@ -146,17 +153,27 @@ class BlogPage(webapp2.RequestHandler):
             self.redirect('/blogs?action=successfully_deleted')
           else:
             self.redirect('/blogs')
-        b_key = self.request.get('id')
-        if b_key:
-          blog = dbHandle.read_blog_byKey(b_key)
-          comments = dbHandle.read_comments_byBlog(blog)
-          page = jinja_env.get_template('blog.html')
+        elif action == "deletecomment":
+          c_key = self.request.get('c_id')
+          comment = dbHandle.read_comment_byKey(c_key)
+          if (comment.user.key().id() == user.key().id()):
+            dbHandle.delete_comment(comment)
+        elif action == "editcomment":
+          c_key = self.request.get('c_id')
+          comment = dbHandle.read_comment_byKey(c_key)
+          page = jinja_env.get_template('editcomment.html')
           self.response.out.write(page.render(user=user,
-                                              blog=blog,
-                                              comments=comments,
-                                              dbHandle=dbHandle))
-        else:
-          self.redirect('/blogs')
+                                              comment=comment))
+        thisblog_key = self.request.get('id')
+        if thisblog_key:
+          blog = dbHandle.read_blog_byKey(thisblog_key)
+          if blog:
+            comments = dbHandle.read_comments_byBlog(blog)
+            page = jinja_env.get_template('blog.html')
+            self.response.out.write(page.render(user=user,
+                                                blog=blog,
+                                                comments=comments,
+                                                dbHandle=dbHandle))
       else:
         self.redirect('/')
     else:
@@ -174,10 +191,13 @@ class BlogPage(webapp2.RequestHandler):
         b_key = self.request.get('blog')
         blog = dbHandle.read_blog_byKey(b_key)
         if u_comment.errormsg == None:
-          c_key = dbHandle.save_comment(u_comment.value, blog, user)
-          self.redirect('/blogs/blog?id='+ str(blog.key()))
-        else:
-          self.redirect('/blogs/blog?id='+ str(blog.key()))
+          c_key = self.request.get('c_id')
+          if not c_key:
+            comment_key = dbHandle.save_comment(u_comment.value, blog, user)
+          else:
+            comment = dbHandle.read_comment_byKey(c_key)
+            c_key = dbHandle.save_comment(u_comment.value, blog, user, comment.key().id())
+        self.redirect('/blogs/blog?id='+ str(blog.key()))
       else:
         self.redirect('/')
     else:

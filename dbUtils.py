@@ -98,6 +98,9 @@ class DBUtility():
     q = db.Query(Comment)
     return q.filter('blog =', blog).order("-created").run()
 
+  def read_comment_byKey(self, c_key):
+    return db.get(c_key)
+
   def count_comments_byBlog(self, blog):
     q = db.Query(Comment)
     return q.filter('blog =', blog).count()

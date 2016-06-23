@@ -377,12 +377,12 @@ body{
 }
 
 .blog-comments-text{
-   font-size: 14px;
+   font-size: 16px;
    color: #262626;
 }
 
 .blog-comments-author-text{
-   font-size: 14px;
+   font-size: 16px;
    color: #0099ff;
 }
 
@@ -416,6 +416,29 @@ body{
    min-width: 50px;
    min-height: 40px;
 }
+
+.blog-comment-btn-size{
+   min-width: 50px;
+   min-height: 40px;
+}
+
+.blog-comment-btn-text{
+   font-family: "Cuprum", sans-serif;
+   font-weight: 400;
+   font-size: 18px;
+   color: #808080;
+}
+
+.blog-comment-btn-position{
+   margin-left: 5px;
+   margin-right: 5px;
+   display: inline-block;
+}
+
+.blog-editcomment-titletext{
+   margin-top: 30px;
+}
+
 
 textarea{
    white-space: pre;

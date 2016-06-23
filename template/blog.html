@@ -26,7 +26,6 @@
                   </span>
                   <ul class="dropdown-menu usericon-dropdown-menu" aria-labelledby="dropdownMenu1">
                      <li class="usericon-dropdown-menu-text usericon-dropdown-menu-align"><b>{{user.emailaddr}}</b></li>
-                     <li><a href="/blogs/myblogs" class="usericon-dropdown-menu-text"><b>My Blogs</b></a></li>
                      <li><a href="/?action=signout" class="usericon-dropdown-menu-text"><b>Signout</b></a></li>
                   </ul>
                </div>
@@ -114,8 +113,29 @@
          <hr class="blogs-hr">
          {% for comment in comments %}
             <div class="row">
-               <div class="col-xs-12 blog-comments-author-text">
+               <div class="col-xs-6 blog-comments-author-text">
                   {{comment.user.firstname}}
+               </div>
+               <div class="col-xs-6" align="right">
+                  {% if blog.author.key().id() == user.key().id() %}
+                     <a class="blog-comment-btn-position blog-comment-btn-size blog-comment-btn-text text-center"
+                        href="/blogs/blog?action=editcomment&c_id={{comment.key()}}">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true">
+                           <span class="hidden-xs hidden-sm">
+                              <b>Edit</b>
+                           </span>
+                        </span>
+                     </a>
+                     <span class="blog-btn-text"><b>|</b></span>
+                     <a class="blog-comment-btn-position blog-comment-btn-size blog-comment-btn-text text-center"
+                        href="/blogs/blog?action=deletecomment&c_id={{comment.key()}}&id={{blog.key()}}">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true">
+                           <span class="hidden-xs hidden-sm">
+                              <b>Delete</b>
+                           </span>
+                        </span>
+                     </a>
+                  {% endif %}
                </div>
                <div class="col-xs-12">
                   <pre class="blogs-textarea blog-comments-text">{{comment.comment}}</pre>
