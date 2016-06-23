@@ -4,7 +4,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width initial-scale=1">
       <title>Blog: Climate Change | Blogger: {{user.firstname}}</title>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cuprum:400,700" type="text/css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cuprum:700" type="text/css">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700" type="text/css">
       <link rel="stylesheet" href="../css/bootstrap.min.css">
       <link rel="stylesheet" href="../css/style.css">
@@ -13,7 +13,7 @@
    </head>
    <body>
       <header class="container">
-         <div class="row row-bg-color margin-start" align="left">
+         <div class="row row-bg-color margin-start">
             <div class="col-xs-8 header-text">
                My Blog
             </div>
@@ -34,34 +34,24 @@
       </header>
       <section class="container">
          <div class="row">
-            <div class="col-xs-12">
-               <form class="form-horizontal" action="#" method="post" id="commentsform">
-                  <div class="form-group">
-                     <div class="col-xs-12 blog-editcomment-titletext">
-                        Edit your Comments Here...
-                        <input type="hidden" name="c_id" value="{{comment.key()}}">
-                        <input type="hidden" name="blog" value="{{comment.blog.key()}}">
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <div class="col-xs-12">
-                        <textarea name="comment"
-                                  rows="4"
-                                  class="blog-comments-textarea"
-                                  form="commentsform">{{comment.comment}}</textarea>
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <div class="col-xs-6">
-                        <a href="/blogs/blog?id={{comment.blog.key()}}" class="btn btn-default btn-size">
-                           Cancel
-                        </a>
-                     </div>
-                     <div class="col-xs-6" align="right">
-                        <input type="submit" class="btn btn-default btn-size" value="Submit">
-                     </div>
-                  </div>
-               </form>
+            <div class="col-xs-12 text-center">
+               <h4 class="modal-title margin-form-title form-title-text" id="blogModelLabel">
+                  Are you sure you want to delete this blog?
+               </h4>
+            </div>
+            <div class="col-xs-6" align="center">
+               <a href="/blogs/blog?action=deleteblog&b_id={{blog.key()}}"
+                  class="btn btn-default btn-size form-body-text margin-form-submit">
+                  Yes
+               </a>
+            </div>
+            <div class="col-xs-6" align="center">
+               <a href="/blogs/blog?id={{blog.key()}}"
+                  class="btn btn-default btn-size form-body-text margin-form-submit">
+                  No
+               </a>
             </div>
          </div>
       </section>
+   </body>
+</html>

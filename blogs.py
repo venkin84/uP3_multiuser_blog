@@ -63,14 +63,21 @@ class BlogInPage(webapp2.RequestHandler):
       user_info = cookie_hash.validate_hashed_cookie(u_cookie)
       user = dbHandle.read_User(user_info)
       if user:
-        b_key = self.request.get('id')
-        if b_key:
+        action = self.request.get('action')
+        if action == "deleteblog":
+          b_key = self.request.get('b_id')
           blog = dbHandle.read_blog_byKey(b_key)
-          page = jinja_env.get_template('editblog.html')
+          page = jinja_env.get_template('deleteblog.html')
           self.response.out.write(page.render(user=user, blog=blog))
         else:
-          page = jinja_env.get_template('blogin.html')
-          self.response.out.write(page.render(user=user))
+          b_key = self.request.get('id')
+          if b_key:
+            blog = dbHandle.read_blog_byKey(b_key)
+            page = jinja_env.get_template('editblog.html')
+            self.response.out.write(page.render(user=user, blog=blog))
+          else:
+            page = jinja_env.get_template('blogin.html')
+            self.response.out.write(page.render(user=user))
       else:
         self.redirect('/')
     else:
@@ -102,8 +109,11 @@ class BlogInPage(webapp2.RequestHandler):
           if b_blog != None:
             b_title.errormsg = "A Blog with the same title is present already... Nice Conincidence!"
 
+        blog = None
         if ((b_title.errormsg != None) |
             (b_blogbody.errormsg != None)):
+          if b_key:
+            blog = dbHandle.read_blog_byKey(b_key)
           if blog != None:
             page = jinja_env.get_template('editblog.html')
             self.response.out.write(page.render(user=user,

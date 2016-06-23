@@ -55,7 +55,7 @@
                   </a>
                   <span class="blog-btn-text"><b>|</b></span>
                   <a class="blog-btn-position blog-btn-size blog-btn-text text-center"
-                     href="/blogs/blog?action=deleteblog&b_id={{blog.key()}}">
+                     href="/blogs/blogin?action=deleteblog&b_id={{blog.key()}}">
                      <span class="glyphicon glyphicon-trash" aria-hidden="true">
                         <span class="hidden-xs hidden-sm">
                            <b>Delete</b>
@@ -117,7 +117,7 @@
                   {{comment.user.firstname}}
                </div>
                <div class="col-xs-6" align="right">
-                  {% if blog.author.key().id() == user.key().id() %}
+                  {% if comment.user.key().id() == user.key().id() %}
                      <a class="blog-comment-btn-position blog-comment-btn-size blog-comment-btn-text text-center"
                         href="/blogs/blog?action=editcomment&c_id={{comment.key()}}">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true">
@@ -148,3 +148,5 @@
             </div>
          {% endfor %}
       </section>
+   </body>
+</html>
