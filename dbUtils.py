@@ -1,3 +1,5 @@
+# Utiltiy class that helps in performing database operations
+
 from google.appengine.ext import db
 
 from domainModels import User

@@ -1,3 +1,5 @@
+# Handlers that manage various functionality of this blog
+
 import os
 
 import webapp2
@@ -12,6 +14,7 @@ jinja_env = jinja2.Environment (loader = jinja2.FileSystemLoader(template_dir), 
 
 dbHandle = DBUtility()
 
+# A utility class that helps in loading the list of blogs in the blogs page
 class PageLoader():
   offset = 0
   limit = 5
@@ -27,6 +30,7 @@ class PageLoader():
 
 loader = PageLoader()
 
+# Handler that manages the Blogs page that loads and displays the list of available blogs
 class BlogsListPage(webapp2.RequestHandler):
   def get(self):
     u_cookie = self.request.cookies.get('user')
@@ -54,7 +58,7 @@ class BlogsListPage(webapp2.RequestHandler):
     else:
       self.redirect('/?action=signout')
 
-
+# Handler that manages the calls related to creation and modification of a blog
 class BlogInPage(webapp2.RequestHandler):
   def get (self):
     u_cookie = self.request.cookies.get('user')
@@ -145,7 +149,8 @@ class BlogInPage(webapp2.RequestHandler):
     else:
       self.redirect('/?action=signout')
 
-
+# Handler that manages the calls related to viewing and deleting a blog as well as
+# creating, viewing, editing and deleting of a comment to the corresponding blog
 class BlogPage(webapp2.RequestHandler):
   def get (self):
     u_cookie = self.request.cookies.get('user')
@@ -213,6 +218,7 @@ class BlogPage(webapp2.RequestHandler):
     else:
       self.redirect('/?action=signout')
 
+# Handler that manages the calls related to likes of a blog
 class LikeABlog(webapp2.RequestHandler):
   def get(self):
     u_cookie = self.request.cookies.get('user')

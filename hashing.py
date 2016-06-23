@@ -1,8 +1,11 @@
+# Utility classes that help in encrypting the information
+
 import random
 import string
 import hashlib
 import hmac
 
+# Utiltiy class to help in encrypting the password
 class SHA256Hashing():
   def make_salt(self):
     return ''.join(random.choice(string.letters) for x in xrange(5))
@@ -17,6 +20,7 @@ class SHA256Hashing():
     salt = hashed_password.split(',')[1]
     return (hashed_password == self.hash_password(username, password, salt))
 
+# Utility class that help in encrypting the cookies
 class HMACHashing():
   SECRET_KEY = "rrb4t3bg43vhrh4903gh3hfj"
 

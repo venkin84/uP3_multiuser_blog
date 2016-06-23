@@ -1,3 +1,5 @@
+# Defines the domain models/tables/kinds in the database
+
 from google.appengine.ext import db
 
 class User(db.Model):

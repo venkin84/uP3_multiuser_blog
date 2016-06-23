@@ -1,3 +1,5 @@
+# These are the handlers that manages the authentication of a user of this blog
+
 import os
 import datetime
 
@@ -14,6 +16,7 @@ template_dir = os.path.join(os.path.dirname(__file__), 'template')
 jinja_env = jinja2.Environment (loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
 dbHandle = DBUtility()
 
+# Handler to sign up a user for this blog
 class SignUpPage(webapp2.RequestHandler):
   def get(self):
     page = jinja_env.get_template('signup.html')
@@ -67,6 +70,7 @@ class SignUpPage(webapp2.RequestHandler):
       else:
         self.redirect('/?action=unsuccessful_signup')
 
+# Handler to authenticate a user to enter this blog
 class SignInPage(webapp2.RequestHandler):
   def get(self):
     redirectDueTo = self.request.get('action')
@@ -96,8 +100,6 @@ class SignInPage(webapp2.RequestHandler):
         else:
           page = jinja_env.get_template('homepage.html')
           self.response.out.write(page.render())
-
-
 
   def post(self):
     u_username = FieldValidator(self.request.get('username'), "Email address")

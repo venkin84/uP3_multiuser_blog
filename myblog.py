@@ -1,3 +1,5 @@
+# The main module that routes the calls
+
 import webapp2
 
 from authentication import SignUpPage
